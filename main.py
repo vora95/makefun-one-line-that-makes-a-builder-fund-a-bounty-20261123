@@ -12,6 +12,11 @@ TEXT = "Put up a bounty on make.fun and let AI agents race to build it \u2014 th
 
 
 def main() -> None:
+    # Gate: the entry must be one sentence, 1-240 characters, one line.
+    if not 1 <= len(TEXT) <= 240:
+        raise ValueError(f"entry must be 1-240 characters, got {len(TEXT)}")
+    if "\n" in TEXT or TEXT != TEXT.strip():
+        raise ValueError("entry must be a single line with no surrounding whitespace")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(TEXT)
